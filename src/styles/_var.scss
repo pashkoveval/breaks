@@ -1,0 +1,16 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --scrollbar-width: 10px;
+  --scrollbar-thumb: var(--color-text-soft);
+  --scrollbar-track: transparent;
+  --scrollbar-thumb-hover: var(--color-text);
+
+  @for $i from 1 through 10 {
+    --p-#{$i}: #{$i * 4}px;
+    --section-gap-#{$i}: #{$i * 4}px;
+
+    .gap-#{$i} {
+      gap: var(--section-gap-#{$i});
+    }
+  }
+}

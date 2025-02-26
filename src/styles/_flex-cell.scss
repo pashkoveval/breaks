@@ -1,0 +1,13 @@
+.flex-cell {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@function grid-width($columns, $column, $gap) {
+  $numberOfColumn: calc($columns / $column);
+  $elementPrimaryLength: calc(100% / #{$numberOfColumn});
+  $fullWidthOfGap: calc(calc(#{$numberOfColumn} - 1) * #{$gap});
+  $subtractedLengthOfGap: calc(#{$fullWidthOfGap} / #{$numberOfColumn});
+  $returnValue: calc(#{$elementPrimaryLength} - #{$subtractedLengthOfGap});
+  @return #{$returnValue};
+}

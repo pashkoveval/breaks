@@ -1,0 +1,32 @@
+# stages:
+#   - build
+#   - deploy
+
+# build:
+#   image: node:20
+#   stage: build
+#   script:
+#     - yarn install
+#     - yarn run build
+#   artifacts:
+#     paths:
+#       - dist/
+
+# docker-build:
+#   image: docker:cli
+#   stage: deploy
+#   variables:
+#     CI_REGISTRY: "your-docker-registry"  # Замените на ваш Docker Registry
+#     CI_REGISTRY_USER: "$CI_REGISTRY_USER"  # Логин для Docker Registry
+#     CI_REGISTRY_PASSWORD: "$CI_REGISTRY_PASSWORD"  # Пароль для Docker Registry
+#     CI_REGISTRY_IMAGE: "your-image-name"  # Имя образа
+#   before_script:
+#     - docker login -u "$CI_REGISTRY_USER" $CI_REGISTRY
+#   script:
+#     - docker build -t "$CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA" .
+#     - docker push "$CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA"
+#     - |
+#       if [[ "$CI_COMMIT_REF_NAME" == "$CI_DEFAULT_BRANCH" ]]; then
+#         docker tag "$CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA" "$CI_REGISTRY/$CI_REGISTRY_IMAGE:latest"
+#         docker push "$CI_REGISTRY/$CI_REGISTRY_IMAGE:latest"
+#       fi

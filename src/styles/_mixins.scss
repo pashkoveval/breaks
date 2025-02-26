@@ -1,0 +1,95 @@
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-track);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: var(--p-2);
+    background-color: var(--scrollbar-track);
+  }
+
+  @media (hover: hover) {
+    &:hover::-webkit-scrollbar-thumb {
+      background-color: var(--scrollbar-thumb);
+    }
+  }
+}
+
+@mixin cleanUL {
+  list-style-type: none;
+}
+
+@mixin font {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin padding {
+  $sizes: 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl';
+  @each $size in $sizes {
+    &_padding-#{$size} {
+      @if $size == 'xs' {
+        padding: var(--p-1);
+      } @else if $size == 's' {
+        padding: var(--p-2);
+      } @else if $size == 'm' {
+        padding: var(--p-3);
+      } @else if $size == 'l' {
+        padding: var(--p-4);
+      } @else if $size == 'xl' {
+        padding: var(--p-5);
+      } @else if $size == 'xxl' {
+        padding: var(--p-6);
+      } @else if $size == 'xxxl' {
+        padding: var(--p-7);
+      } @else {
+        padding: 0;
+      }
+    }
+  }
+}
+
+@mixin round {
+  $sizes: 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl';
+  @each $size in $sizes {
+    &_rounded-#{$size} {
+      @if $size == 'xs' {
+        border-radius: var(--p-1);
+      } @else if $size == 's' {
+        border-radius: var(--p-2);
+      } @else if $size == 'm' {
+        border-radius: var(--p-3);
+      } @else if $size == 'l' {
+        border-radius: var(--p-4);
+      } @else if $size == 'xl' {
+        border-radius: var(--p-5);
+      } @else if $size == 'xxl' {
+        border-radius: var(--p-6);
+      } @else if $size == 'xxxl' {
+        border-radius: var(--p-7);
+      } @else {
+        border-radius: 0;
+      }
+    }
+  }
+}

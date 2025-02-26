@@ -1,0 +1,41 @@
+@use './var';
+@use './flex-cell';
+@use './mixins';
+@use './themes';
+
+#app {
+  width: 100dvw;
+  height: 100dvh;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: #00bd7e;
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: #00bd7e33;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-weight: normal;
+  margin: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+body {
+  min-height: 100dvh;
+  color: var(--color-text);
+  background: var(--color-background);
+
+  @include font;
+  @include scrollbar;
+}
