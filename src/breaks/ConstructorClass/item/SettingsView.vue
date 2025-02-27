@@ -7,8 +7,8 @@ const props = defineProps({
   bgColor: {
     type: String as PropType<ViewColor>,
     default: ViewColor.BG_MUTE,
-  }
-});
+  },
+})
 
 const classes = computed(() => ({
   [`view`]: true,
