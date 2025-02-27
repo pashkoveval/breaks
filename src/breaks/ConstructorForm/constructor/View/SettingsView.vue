@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ViewSize } from '@/base/View'
+import { ViewSize } from '@/enums/View'
 import { computed } from 'vue'
 
 defineOptions({ name: 'SettingsView' })

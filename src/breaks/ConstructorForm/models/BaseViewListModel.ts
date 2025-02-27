@@ -1,11 +1,11 @@
 import { BaseViewFieldModel } from './BaseViewFieldModel'
 import { BaseViewElement, BaseViewListElementModel } from './BaseViewListElementModel'
 import { ApiProperty } from '@/api'
-import type { BaseAttrModel } from '@/api/Model/BaseAttr/BaseAttrModel'
 import Model from '@/api/Model/Model'
-import { FieldViewTypes } from '@/base/Fields'
-import { InputTypes } from '@/base/Inputs'
-import { BreakPoints } from '@/base/View'
+import type { ModelBaseAttr } from '@/breaks/ConstructorClass/models/ModelBaseAttr'
+import { FieldViewTypes } from '@/enums/Fields'
+import { InputTypes } from '@/enums/Inputs'
+import { BreakPoints } from '@/enums/View'
 
 export enum ViewElement {
   LIST = 'UiElementsList',
@@ -74,7 +74,7 @@ export class BaseViewListModel extends BaseViewElement {
   @ApiProperty({ type: 'number', nullable: true, iterable: true })
   public breakPoints?: BaseBreakPointView[] = []
 
-  public addField(attr: null | BaseAttrModel = null, value?: BaseViewFieldModel) {
+  public addField(attr: null | ModelBaseAttr = null, value?: BaseViewFieldModel) {
     const element = value || BaseViewFieldModel.create()
     element.viewType = FieldViewTypes.READONLY
     element.attrCode = attr?.code || ''

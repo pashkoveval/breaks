@@ -1,6 +1,6 @@
 import { ApiProperty } from '@/api'
 import Model from '@/api/Model/Model'
-import { ViewSize } from '@/base/View'
+import { ViewSize } from '@/enums/View'
 
 export enum ViewSingleElement {
   CARD = 'UiCard',

@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { ClassRoutsNames } from '../constants'
-import { Breaks } from '@/breaks/constants'
+import { Breaks } from '@/enums/Breaks'
 
 export default {
   path: ClassRoutsNames.CREATE,

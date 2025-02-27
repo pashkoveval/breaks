@@ -27,4 +27,8 @@ export enum ViewColor {
   INFO = 'info',
   LIGHT = 'light',
   DARK = 'dark',
+  SOFT = 'soft',
+  BG_SOFT = 'bg-soft',
+  MUTE = 'mute',
+  BG_MUTE = 'bg-mute',
 }

@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { ConstructorClassModel } from '@/breaks/ConstructorClass/models/ConstructorClassModel'
 import type { BaseViewFieldModel } from '@/breaks/ConstructorForm/models/BaseViewFieldModel'
 import { computed, type PropType } from 'vue'
 import { breakpointsSematic, useBreakpoints } from '@vueuse/core'
 import { ClassRoutsNames } from '@/breaks/ConstructorClass/constants'
 import { BaseViewListModel } from '@/breaks/ConstructorForm/models/BaseViewListModel'
 import UiCard from '../UiCard/UiCard.vue'
+import type { ModelBaseClass } from '@/breaks/ConstructorClass/models/ModelBaseClass'
 
 defineOptions({ name: 'UiElementsList' })
 const props = defineProps({
   list: {
-    type: Array as PropType<ConstructorClassModel[]>,
+    type: Array as PropType<ModelBaseClass[]>,
     default: () => [],
     required: true,
   },
@@ -52,7 +52,7 @@ const listClasses = computed(() => {
   }
 })
 
-const getAttrByField = (element: ConstructorClassModel, field: BaseViewFieldModel) => {
+const getAttrByField = (element: ModelBaseClass, field: BaseViewFieldModel) => {
   return element.attrs.find((attr) => attr.code === field.attrCode)
 }
 
@@ -67,9 +67,9 @@ console.log('props.settings', props.settings)
 
     <UiCard
       v-for="element in props.list"
-      :key="element.id"
+      :key="element.guid"
       class="cell"
-      :link-data="{ name: ClassRoutsNames.EDIT, params: { id: element.id } }"
+      :link-data="{ name: ClassRoutsNames.EDIT, params: { id: element.guid } }"
     >
       <div v-for="field in props.settings.fields" :key="field.id" class="cell-field">
         <div class="cell-field__header">
