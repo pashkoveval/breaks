@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onBeforeMount } from 'vue'
-import { useMenuStore } from '@/stores/menu'
+import { useMenuStore } from '@/menu/menu'
 import UiMenuItem from '@/ui/UiMenuItem/UiMenuItem.vue'
 
-defineOptions({ name: 'SideBar' })
+defineOptions({ name: 'MainSidebar' })
 
 const menu = useMenuStore()
 
@@ -15,13 +15,13 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <nav class="sidebar">
+  <nav class="main-sidebar">
     <UiMenuItem v-for="item in menu.menuList" :key="item.name" :item="item" />
   </nav>
 </template>
 
 <style scoped lang="scss">
-.sidebar {
+.main-sidebar {
   display: flex;
   flex-direction: column;
   gap: 16px;

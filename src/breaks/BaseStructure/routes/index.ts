@@ -4,7 +4,7 @@ import MainLayout from '../layout/MainLayout.vue'
 import create from './create'
 import edit from './edit'
 import list from './list'
-import { Breaks } from '@/breaks/constants'
+import { Breaks } from '@/enums/Breaks'
 
 const routes: RouteRecordRaw[] = [
   {

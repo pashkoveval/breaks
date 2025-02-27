@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, type PropType } from 'vue'
-import { ViewSize } from '@/base/View'
+import { ViewSize } from '@/enums/View'
 
 defineOptions({ name: 'UiCard' })
 const props = defineProps({

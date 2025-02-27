@@ -1,17 +1,18 @@
+import type { Role } from '@/supabase/totalTypes'
+import type { BreaksENV } from '@/breaks/breaks'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import breaksRouts from '@/breaks/routes'
-import { useAuthStore } from '@/stores/auth'
-import type { Role } from '@/supabase/totalTypes'
+import { useAuthStore } from '@/auth/auth'
 
 const getConnectedBreaks = (route: RouteRecordRaw) => {
-  const list = JSON.parse(import.meta.env.VITE_BREAKS || '{}') as { [key: string]: boolean }
+  const list = JSON.parse(import.meta.env.VITE_BREAKS || '{}') as BreaksENV
   const breakName = (route?.meta?.break as string) || ''
-  return breakName && list[breakName]
+  return breakName && list[breakName] === true
 }
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes: [
     {
       path: '/',

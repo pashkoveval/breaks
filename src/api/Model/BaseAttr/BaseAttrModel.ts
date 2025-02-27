@@ -1,6 +1,6 @@
 import { BaseClassModel } from '../BaseClass/BaseClassModel'
 import { ApiProperty } from '@/api'
-import { InputTypes } from '@/base/Inputs'
+import { InputTypes } from '@/enums/Inputs'
 
 export class BaseAttrModel extends BaseClassModel {
   @ApiProperty({ type: 'string' })

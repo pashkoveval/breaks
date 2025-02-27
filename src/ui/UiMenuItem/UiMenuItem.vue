@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
-import type { MenuItem } from '@/api/Model/Menu/MenuItem'
+import type { ModelBaseMenu } from '@/api/Model/ModelBaseMenu'
 
 const route = useRoute()
 defineOptions({ name: 'UiMenuItem' })
 const props = defineProps<{
-  item: MenuItem
+  item: ModelBaseMenu
 }>()
 
 const collapse = () => {

@@ -1,6 +1,14 @@
 @mixin scrollbar {
   &::-webkit-scrollbar {
     width: var(--scrollbar-width);
+    height: var(--scrollbar-width);
+
+    // @media (hover: hover) {
+    //   &:hover {
+    //     width: calc(2 * var(--scrollbar-width));
+    //     height: calc(2 * var(--scrollbar-width));
+    //   }
+    // }
   }
 
   &::-webkit-scrollbar-track {
@@ -89,6 +97,19 @@
         border-radius: var(--p-7);
       } @else {
         border-radius: 0;
+      }
+    }
+  }
+}
+@mixin bg_color {
+  $colors: 'base', 'bg-soft', 'bg-mute';
+
+  @each $color in $colors {
+    &_bg-color-#{$colors} {
+      @if $color == 'base' {
+        border-radius: var(--p-1);
+      } @else {
+        background-color: var(--color-background-#{$colors});
       }
     }
   }

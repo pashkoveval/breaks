@@ -4,7 +4,7 @@ import { ErrorsModel } from '../BaseErrors/BaseErrorsModel'
 import { ApiProperty } from '@/api'
 import Model from '@/api/Model/Model'
 import guid from '@/helpers/guid'
-import type { ProfileUser } from '@/stores/auth'
+import type { ProfileUser } from '@/auth/auth'
 
 export class BaseClassModel extends Model {
   @ApiProperty({ type: 'string', nullable: true })
@@ -16,8 +16,8 @@ export class BaseClassModel extends Model {
   @ApiProperty({ type: 'string' })
   public name: string = ''
 
-  @ApiProperty({ type: 'string' })
-  public description: string = ''
+  @ApiProperty({ type: 'string', nullable: true })
+  public description?: string = undefined
 
   @ApiProperty({ type: 'string', transform: ({ value }) => dayjs(value).toISOString() })
   public created_at: string = dayjs(new Date()).toISOString()

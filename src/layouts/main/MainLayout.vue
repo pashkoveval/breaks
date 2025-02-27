@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import AsideBlock from './aside/AsideBlock.vue'
-import FooterBlock from './footer/FooterBlock.vue'
-import HeaderBlock from './header/HeaderBlock.vue'
-import MainBlock from './main/MainBlock.vue'
-
 defineOptions({ name: 'MainLayout' })
 const slots = defineSlots<{
   aside?: (props: unknown) => unknown
@@ -14,31 +9,23 @@ const slots = defineSlots<{
 </script>
 
 <template>
-  <div class="main-layout">
-    <AsideBlock v-if="slots?.aside">
-      <template #aside>
-        <slot name="aside" />
-      </template>
-    </AsideBlock>
+  <section class="main-layout">
+    <aside v-if="slots?.aside" class="aside">
+      <slot name="aside" />
+    </aside>
 
-    <HeaderBlock v-if="slots?.header">
-      <template #header>
-        <slot name="header" />
-      </template>
-    </HeaderBlock>
+    <header v-if="slots?.header" class="header">
+      <slot name="header" />
+    </header>
 
-    <MainBlock v-if="slots?.main">
-      <template #main>
-        <slot name="main" />
-      </template>
-    </MainBlock>
+    <main v-if="slots?.main" class="main">
+      <slot name="main" />
+    </main>
 
-    <FooterBlock v-if="slots?.footer">
-      <template #footer>
-        <slot name="footer" />
-      </template>
-    </FooterBlock>
-  </div>
+    <footer v-if="slots?.footer" class="footer">
+      <slot name="footer" />
+    </footer>
+  </section>
 </template>
 
 <style scoped lang="scss">
@@ -53,5 +40,31 @@ const slots = defineSlots<{
     'aside header'
     'aside main'
     'aside footer';
+}
+
+.aside,
+.header,
+.main,
+.footer {
+  width: 100%;
+  overflow: auto;
+  padding: var(--p-1);
+}
+
+.aside {
+  grid-area: aside;
+}
+
+.header {
+  grid-area: header;
+}
+
+.main {
+  grid-area: main;
+  @include scrollbar;
+}
+
+.footer {
+  grid-area: footer;
 }
 </style>
