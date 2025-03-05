@@ -11,7 +11,9 @@ export class ModelBaseClass extends ModelBaseElementAdminFields {
   }
 
   public addAttribute() {
-    this.attrs.push(ModelBaseAttr.empty())
+    const attr = ModelBaseAttr.empty()
+    attr.setCreateUserId(this.update_user_id)
+    this.attrs.push(attr)
   }
 
   public removeAttribute(attr: ModelBaseAttr) {

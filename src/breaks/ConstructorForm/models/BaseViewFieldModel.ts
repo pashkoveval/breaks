@@ -17,7 +17,7 @@ export class BaseViewFieldModel extends Model {
   public attrCode: BaseAttrModel['code'] = ''
 
   @ApiProperty({ type: 'string' })
-  public attrType: BaseAttrModel['type'] = InputTypes.STRING
+  public attrType: BaseAttrModel['type'] = FieldTypes.INPUT
 
   @ApiProperty({ type: 'string' })
   public viewType: FieldViewTypes = FieldViewTypes.EDIT
@@ -112,10 +112,6 @@ export class BaseFieldsTypeList {
   ]
 
   public inputType?: null | InputTypes
-
-  constructor(attr?: null | InputTypes | BaseAttrModel) {
-    this.inputType = attr instanceof BaseAttrModel ? attr?.type : attr
-  }
 
   public get list(): FieldTypeElement[] {
     return this.allElements.filter((field) => {

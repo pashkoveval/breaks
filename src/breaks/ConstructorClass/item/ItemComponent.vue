@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { ModelBaseClass } from '../models/ModelBaseClass'
 import SettingsView from './SettingsView.vue'
 import { BaseFieldsTypeList } from '@/breaks/ConstructorForm/models/BaseViewFieldModel'
@@ -19,6 +19,10 @@ const selectedAttr = ref<ModelBaseAttr>()
 const selectAttr = (attr: ModelBaseAttr) => {
   selectedAttr.value = attr
 }
+
+onMounted(() => {
+  creationClassModel.setCreateUserId()
+})
 </script>
 
 <template>

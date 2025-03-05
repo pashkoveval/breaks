@@ -49,9 +49,9 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.setItem(key, JSON.stringify(data))
     }
   }
-  const _setSession = (session: Session | null | undefined) => {
+  const _setSession = async (session: Session | null | undefined) => {
     if (session && !sessionData.value) {
-      _setProfile(session?.user)
+      await _setProfile(session?.user)
       _setCurrentSession(session)
       sessionData.value = omit(session, ['user'])
     }
@@ -66,7 +66,7 @@ export const useAuthStore = defineStore('auth', () => {
       return await supabase.auth.getSession()
     }
 
-    _setSession(
+    await _setSession(
       await _setOrGetSession()
         .then(({ data, error }) => {
           _setError(error)
@@ -85,6 +85,10 @@ export const useAuthStore = defineStore('auth', () => {
     },
   ) => {
     isAuthLoaded.value = true
+    if (!currentSession.value) {
+      await setSessionData()
+    }
+
     if (sessionData.value) {
       return
     }
@@ -94,7 +98,7 @@ export const useAuthStore = defineStore('auth', () => {
       error,
     } = await supabase.auth.signInWithPassword(credentials)
     _setError(error)
-    _setSession(session)
+    await _setSession(session)
     isAuthLoaded.value = false
     return { user, session, error }
   }

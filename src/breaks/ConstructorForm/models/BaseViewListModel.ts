@@ -3,8 +3,7 @@ import { BaseViewElement, BaseViewListElementModel } from './BaseViewListElement
 import { ApiProperty } from '@/api'
 import Model from '@/api/Model/Model'
 import type { ModelBaseAttr } from '@/breaks/ConstructorClass/models/ModelBaseAttr'
-import { FieldViewTypes } from '@/enums/Fields'
-import { InputTypes } from '@/enums/Inputs'
+import { FieldTypes, FieldViewTypes } from '@/enums/Fields'
 import { BreakPoints } from '@/enums/View'
 
 export enum ViewElement {
@@ -78,7 +77,7 @@ export class BaseViewListModel extends BaseViewElement {
     const element = value || BaseViewFieldModel.create()
     element.viewType = FieldViewTypes.READONLY
     element.attrCode = attr?.code || ''
-    element.attrType = attr?.type || InputTypes.STRING
+    element.attrType = attr?.type || FieldTypes.INPUT
     this.fields.push(element)
   }
 

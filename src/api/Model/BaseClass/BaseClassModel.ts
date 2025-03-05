@@ -29,7 +29,7 @@ export class BaseClassModel extends Model {
   public access?: AccessBaseModel = new AccessBaseModel()
 
   @ApiProperty({ type: 'string', nullable: true })
-  public user_id?: undefined | ProfileUser['uuid'] = undefined
+  public update_user_id?: undefined | ProfileUser['uuid'] = undefined
 
   @ApiProperty({ type: ErrorsModel, iterable: true, nullable: true })
   public errors?: ErrorsModel[] = undefined
