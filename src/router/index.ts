@@ -28,14 +28,17 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const AUTH = useAuthStore()
-  const isAuthenticated = !!AUTH.sessionData // Проверка авторизации
   const requiresAuth = to.matched.some((record) => record.meta.auth) // Требуется ли авторизация
 
-  if (requiresAuth && !isAuthenticated) {
+  if (AUTH.currentSession) {
+    return next()
+  }
+
+  if (requiresAuth && !Boolean(AUTH.sessionData)) {
     // Если маршрут требует авторизации, а пользователь не авторизован
     // next({ name: 'login' }); // Перенаправляем на страницу входа
     next({ name: 'home' }) // Перенаправляем на страницу входа
-  } else if (requiresAuth && isAuthenticated) {
+  } else if (requiresAuth && Boolean(AUTH.sessionData)) {
     // Если маршрут требует авторизации и пользователь авторизован
     const userRoles = AUTH.profileData?.roles || [] // Получаем роли пользователя
     const requiredRoles = (to?.meta?.roles as Role['id'][]) || [] // Роли, необходимые для доступа

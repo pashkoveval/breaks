@@ -17,16 +17,12 @@ const changeTheme = () => {
 
 onBeforeMount(() => {
   themeStore.changeTheme(themeStore.currentTheme)
-  auth.setSessionData()
-
-  setTimeout(async () => {
-    await auth.signIn()
-  }, 3000)
+  auth.signIn()
 })
 </script>
 
 <template>
-  <MainLayout class="main-layout">
+  <MainLayout v-isAuthLoaded="auth.isAuthLoaded" class="main-layout">
     <template #aside>
       <SideBar />
     </template>
@@ -35,7 +31,7 @@ onBeforeMount(() => {
       <el-button type="primary" @click="changeTheme">changeTheme</el-button>
     </template>
 
-    <template #main>
+    <template v-if="!auth.isAuthLoaded" #main>
       <KeepAlive>
         <RouterView />
       </KeepAlive>
