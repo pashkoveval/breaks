@@ -17,6 +17,7 @@ const routes: RouteRecordRaw[] = [
       button: 'Конструктор форм',
       auth: true,
       roles: [],
+      icon: 'Platform',
     },
     children: [create, list, edit],
   },

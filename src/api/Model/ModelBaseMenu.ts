@@ -15,6 +15,9 @@ export class ModelBaseMenuMeta extends Model {
   @ApiProperty({ type: 'string', nullable: true })
   public button?: null | string = ''
 
+  @ApiProperty({ type: 'string', nullable: true })
+  public icon?: string = 'div'
+
   @ApiProperty({ type: 'boolean', nullable: true })
   public auth: boolean = false
 

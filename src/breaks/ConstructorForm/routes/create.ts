@@ -3,7 +3,7 @@ import { ClassRoutsNames } from '../constants'
 import { Breaks } from '@/enums/Breaks'
 
 export default {
-  path: ClassRoutsNames.CREATE_PATH,
+  path: `/${ClassRoutsNames.BASE}` + ClassRoutsNames.CREATE_PATH,
   name: ClassRoutsNames.CREATE,
   meta: {
     break: Breaks.BASE,

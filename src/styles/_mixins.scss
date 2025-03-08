@@ -101,16 +101,13 @@
     }
   }
 }
+
 @mixin bg_color {
-  $colors: 'base', 'bg-soft', 'bg-mute';
+  $colors: 'base', 'soft', 'mute';
 
   @each $color in $colors {
-    &_bg-color-#{$colors} {
-      @if $color == 'base' {
-        border-radius: var(--p-1);
-      } @else {
-        background-color: var(--color-background-#{$colors});
-      }
+    &_bg-color-#{$color} {
+      background-color: var(--color-background-#{$color});
     }
   }
 }

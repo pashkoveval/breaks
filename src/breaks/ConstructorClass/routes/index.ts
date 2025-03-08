@@ -17,6 +17,7 @@ const routes: RouteRecordRaw[] = [
       button: 'Конструктор классов',
       auth: true,
       roles: [],
+      icon: 'Tickets',
     },
     children: [create, list, edit],
   },

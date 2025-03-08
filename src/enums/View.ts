@@ -24,11 +24,10 @@ export enum ViewColor {
   SUCCESS = 'success',
   DANGER = 'danger',
   WARNING = 'warning',
+  BASE = 'base',
   INFO = 'info',
   LIGHT = 'light',
   DARK = 'dark',
   SOFT = 'soft',
-  BG_SOFT = 'bg-soft',
   MUTE = 'mute',
-  BG_MUTE = 'bg-mute',
 }

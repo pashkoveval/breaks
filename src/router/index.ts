@@ -20,6 +20,7 @@ const router = createRouter({
       component: HomeView,
       meta: {
         title: 'Домашняя страница',
+        icon: 'House',
       },
     },
     ...breaksRouts.filter(getConnectedBreaks),

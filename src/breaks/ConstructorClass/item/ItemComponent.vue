@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { ModelBaseClass } from '../models/ModelBaseClass'
-import SettingsView from './SettingsView.vue'
 import { BaseFieldsTypeList } from '@/breaks/ConstructorForm/models/BaseViewFieldModel'
 import type { ModelBaseAttr } from '../models/ModelBaseAttr'
+import UiCard from '@/ui/UiCard/UiCard.vue'
+import { ViewColor } from '@/enums/View'
 
 defineOptions({ name: 'ItemComponent' })
 // const props = defineProps({
@@ -27,19 +28,30 @@ onMounted(() => {
 
 <template>
   <div class="constructor-class-element">
-    <SettingsView class="constructor-class-element--table">
-      <div class="constructor-class-element--table__header">Атрибуты класса</div>
+    <UiCard class="constructor-class-element--table">
+      <template #header>
+        <span>Атрибуты класса</span>
+      </template>
 
-      <el-scrollbar class="constructor-class-element--table__body">
+      <!-- <div class="constructor-class-element--table__body"> -->
+      <el-scrollbar class="constructor-class-element--table__body-list">
         <div class="flex-column gap-2">
-          <el-card v-for="attr in creationClassModel.attrs" :key="attr.guid" shadow="hover" class="attr">
+          <UiCard
+            v-for="attr in creationClassModel.attrs"
+            :key="attr.guid"
+            shadow="hover"
+            class="attr"
+            :bg-color="ViewColor.BASE"
+          >
             <div class="flex-column gap-2">
-              <el-input v-model="attr.name" placeholder="атрибут" size="small" clearable>
+              <el-input v-model="attr.name" placeholder="атрибут" class="dark" size="small" clearable>
                 <template #prepend>Название:</template>
               </el-input>
-              <el-input v-model="attr.code" placeholder="SOME_CODE" size="small" clearable>
+
+              <el-input v-model="attr.code" placeholder="SOME_CODE" dark size="small" clearable>
                 <template #prepend>Код:</template>
               </el-input>
+
               <el-input
                 v-model="attr.description"
                 placeholder="Описание атрибута"
@@ -47,6 +59,7 @@ onMounted(() => {
                 size="small"
                 :rows="1"
               />
+
               <el-select
                 v-model="attr.type"
                 placeholder="Select"
@@ -58,30 +71,39 @@ onMounted(() => {
               >
                 <el-option v-for="item in inputTypes.list" :key="item.type" :label="item.name" :value="item.type" />
               </el-select>
+            </div>
+
+            <template #footer>
               <div class="flex gap-1">
                 <el-button type="primary" size="small" icon="Setting" @click="selectAttr(attr)"> Настройки </el-button>
+
                 <el-button type="danger" size="small" icon="Delete" @click="creationClassModel.removeAttribute(attr)">
                   Удалить атрибут
                 </el-button>
               </div>
-            </div>
-          </el-card>
+            </template>
+          </UiCard>
         </div>
 
         <pre>{{ creationClassModel }}</pre>
       </el-scrollbar>
-    </SettingsView>
+      <!-- </div> -->
+    </UiCard>
 
-    <SettingsView class="constructor-class-element--table">
-      <div class="constructor-class-element--table__header">Настройки класса</div>
+    <UiCard class="constructor-class-element--table">
+      <template #header>
+        <span>Настройки класса</span>
+      </template>
 
       <div class="flex-column gap-2">
         <el-input v-model="creationClassModel.name" placeholder="класса" size="small" clearable>
           <template #prepend>Название:</template>
         </el-input>
+
         <el-input v-model="creationClassModel.code" placeholder="SOME_CODE" size="small" clearable>
           <template #prepend>Код:</template>
         </el-input>
+
         <el-input
           v-model="creationClassModel.description"
           placeholder="Описание класса"
@@ -95,7 +117,7 @@ onMounted(() => {
         </el-button>
 
         <el-button
-          v-if="creationClassModel.attrs.length > 3"
+          v-if="creationClassModel.attrs.length"
           class="m-0"
           type="danger"
           size="small"
@@ -105,7 +127,7 @@ onMounted(() => {
           Удалить все атрибуты
         </el-button>
       </div>
-    </SettingsView>
+    </UiCard>
 
     <!-- <SettingsView class="constructor-class-element--table">
       <div class="constructor-class-element--table__header">Права доступа класса</div>
@@ -124,7 +146,7 @@ onMounted(() => {
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  gap: var(--p-1);
+  gap: var(--p-4);
 
   &--table {
     width: 100%;
@@ -132,12 +154,9 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: var(--gap-1);
-    overflow: auto;
 
-    &__header {
-      padding-bottom: var(--p-1);
-      margin-bottom: var(--p-3);
-      border-bottom: 1px solid var(--color-secondary);
+    &__body-list {
+      overflow: auto;
     }
   }
 }
