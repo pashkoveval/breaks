@@ -4,7 +4,7 @@ import MainLayout from '../layout/MainLayout.vue'
 import create from './create'
 import edit from './edit'
 import list from './list'
-import { Breaks } from '@/breaks/constants'
+import { Breaks } from '@/enums/Breaks'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -17,6 +17,7 @@ const routes: RouteRecordRaw[] = [
       button: 'Конструктор классов',
       auth: true,
       roles: [],
+      icon: 'Tickets',
     },
     children: [create, list, edit],
   },

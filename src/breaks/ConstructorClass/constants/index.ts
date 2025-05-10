@@ -1,9 +1,9 @@
 export enum ClassRoutsNames {
-  BASE = 'ConstructorClass',
-  CREATE = 'ConstructorClassCreation',
+  BASE = 'constructorClass',
+  CREATE = 'constructorClassCreation',
   CREATE_PATH = 'creation',
-  EDIT = 'ConstructorClassEdit',
+  EDIT = 'constructorClassEdit',
   EDIT_PATH = 'edit',
-  LIST = 'ConstructorClassList',
+  LIST = 'constructorClassList',
   LIST_PATH = 'list',
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, type PropType } from 'vue'
-import { ViewSize } from '@/base/View'
+import { ViewColor, ViewSize } from '@/enums/View'
+import guid from '@/helpers/guid'
 
 defineOptions({ name: 'UiCard' })
 const props = defineProps({
@@ -16,35 +17,64 @@ const props = defineProps({
     type: Object as PropType<{ name: string; params: { id: string | undefined } }>,
     default: null,
   },
+  bgColor: {
+    type: String as PropType<ViewColor>,
+    default: ViewColor.MUTE,
+  },
 })
+const slots = defineSlots<{
+  header?: (props: unknown) => unknown
+  footer?: (props: unknown) => unknown
+  default?: (props: unknown) => unknown
+}>()
 
 const classes = computed(() => ({
-  [`ui-card_rounded-${props.rounded}`]: !!props.rounded,
-  [`ui-card_padding-${props.padding}`]: !!props.padding,
+  [`ui-card_bg-color-${props.bgColor}`]: true,
 }))
 
 const elementComponent = computed(() => {
   if (props.linkData) {
     return 'RouterLink'
   }
-  return 'div'
+  return 'el-card'
 })
 </script>
 
 <template>
-  <component :is="elementComponent" :to="linkData" class="ui-card" :class="classes">
+  <component
+    :is="elementComponent"
+    :id="guid()"
+    :to="linkData"
+    :body-class="$attrs.class"
+    class="ui-card"
+    :class="classes"
+  >
+    <template v-if="slots.header" #header>
+      <slot name="header" />
+    </template>
+
     <slot />
+
+    <template v-if="slots.footer" #footer>
+      <slot name="footer" />
+    </template>
   </component>
 </template>
 
 <style scoped lang="scss">
 .ui-card {
   width: 100%;
-  min-width: 50px;
   height: 100%;
   min-height: 50px;
 
-  @include padding;
-  @include round;
+  :deep(.el-card) {
+    overflow: hidden;
+  }
+
+  :deep(.el-card__body) {
+    overflow: hidden;
+  }
+
+  @include bg_color;
 }
 </style>

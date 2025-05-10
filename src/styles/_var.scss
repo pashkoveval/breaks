@@ -1,16 +1,84 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --scrollbar-width: 10px;
+  --scrollbar-width: 6px;
+  --scrollbar-height: 6px;
   --scrollbar-thumb: var(--color-text-soft);
   --scrollbar-track: transparent;
   --scrollbar-thumb-hover: var(--color-text);
 
   @for $i from 1 through 10 {
     --p-#{$i}: #{$i * 4}px;
-    --section-gap-#{$i}: #{$i * 4}px;
+
+    .p-#{$i} {
+      padding: var(--p-#{$i});
+    }
+    .px-#{$i} {
+      padding-left: var(--p-#{$i});
+      padding-right: var(--p-#{$i});
+    }
+    .py-#{$i} {
+      padding-top: var(--p-#{$i});
+      padding-bottom: var(--p-#{$i});
+    }
+    .pt-#{$i} {
+      padding-top: var(--p-#{$i});
+    }
+    .pr-#{$i} {
+      padding-right: var(--p-#{$i});
+    }
+    .pb-#{$i} {
+      padding-bottom: var(--p-#{$i});
+    }
+    .pl-#{$i} {
+      padding-left: var(--p-#{$i});
+    }
+
+    .m-0 {
+      margin: 0;
+    }
+    .m-#{$i} {
+      margin: var(--p-#{$i});
+    }
+    .mx-#{$i} {
+      margin-left: var(--p-#{$i});
+      padding-right: var(--p-#{$i});
+    }
+    .my-#{$i} {
+      margin-top: var(--p-#{$i});
+      margin-bottom: var(--p-#{$i});
+    }
+    .mt-#{$i} {
+      margin-top: var(--p-#{$i});
+    }
+    .mr-#{$i} {
+      margin-right: var(--p-#{$i});
+    }
+    .mb-#{$i} {
+      margin-bottom: var(--p-#{$i});
+    }
+    .ml-#{$i} {
+      margin-left: var(--p-#{$i});
+    }
 
     .gap-#{$i} {
-      gap: var(--section-gap-#{$i});
+      gap: var(--p-#{$i});
+    }
+    .gap-x-#{$i} {
+      column-gap: var(--p-#{$i});
+    }
+    .gap-y-#{$i} {
+      row-gap: var(--p-#{$i});
     }
   }
+}
+
+.flex {
+  width: 100%;
+  display: flex;
+}
+
+.flex-column {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }

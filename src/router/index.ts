@@ -1,17 +1,18 @@
+import type { Role } from '@/supabase/totalTypes'
+import type { BreaksENV } from '@/breaks/breaks'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import breaksRouts from '@/breaks/routes'
-import { useAuthStore } from '@/stores/auth'
-import type { Role } from '@/supabase/totalTypes'
+import { useAuthStore } from '@/auth/auth'
 
 const getConnectedBreaks = (route: RouteRecordRaw) => {
-  const list = JSON.parse(import.meta.env.VITE_BREAKS || '{}') as { [key: string]: boolean }
+  const list = JSON.parse(import.meta.env.VITE_BREAKS || '{}') as BreaksENV
   const breakName = (route?.meta?.break as string) || ''
-  return breakName && list[breakName]
+  return breakName && list[breakName] === true
 }
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes: [
     {
       path: '/',
@@ -19,6 +20,7 @@ const router = createRouter({
       component: HomeView,
       meta: {
         title: 'Домашняя страница',
+        icon: 'House',
       },
     },
     ...breaksRouts.filter(getConnectedBreaks),
@@ -27,14 +29,17 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const AUTH = useAuthStore()
-  const isAuthenticated = !!AUTH.sessionData // Проверка авторизации
   const requiresAuth = to.matched.some((record) => record.meta.auth) // Требуется ли авторизация
 
-  if (requiresAuth && !isAuthenticated) {
+  if (AUTH.currentSession) {
+    return next()
+  }
+
+  if (requiresAuth && !Boolean(AUTH.sessionData)) {
     // Если маршрут требует авторизации, а пользователь не авторизован
     // next({ name: 'login' }); // Перенаправляем на страницу входа
     next({ name: 'home' }) // Перенаправляем на страницу входа
-  } else if (requiresAuth && isAuthenticated) {
+  } else if (requiresAuth && Boolean(AUTH.sessionData)) {
     // Если маршрут требует авторизации и пользователь авторизован
     const userRoles = AUTH.profileData?.roles || [] // Получаем роли пользователя
     const requiredRoles = (to?.meta?.roles as Role['id'][]) || [] // Роли, необходимые для доступа

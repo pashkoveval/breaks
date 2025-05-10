@@ -1,9 +1,9 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { ClassRoutsNames } from '../constants'
-import { Breaks } from '@/breaks/constants'
+import { Breaks } from '@/enums/Breaks'
 
 export default {
-  path: ClassRoutsNames.LIST_PATH,
+  path: `/${ClassRoutsNames.BASE}` + ClassRoutsNames.LIST_PATH,
   name: ClassRoutsNames.LIST,
   meta: {
     break: Breaks.CLASS,
@@ -12,6 +12,7 @@ export default {
     button: 'К списку форм',
     auth: true,
     roles: [],
+    icon: 'List',
   },
   component: () => import('../list/ListComponent.vue'),
 } as RouteRecordRaw

@@ -1,6 +1,14 @@
 @mixin scrollbar {
   &::-webkit-scrollbar {
     width: var(--scrollbar-width);
+    height: var(--scrollbar-width);
+
+    // @media (hover: hover) {
+    //   &:hover {
+    //     width: calc(2 * var(--scrollbar-width));
+    //     height: calc(2 * var(--scrollbar-width));
+    //   }
+    // }
   }
 
   &::-webkit-scrollbar-track {
@@ -90,6 +98,16 @@
       } @else {
         border-radius: 0;
       }
+    }
+  }
+}
+
+@mixin bg_color {
+  $colors: 'base', 'soft', 'mute';
+
+  @each $color in $colors {
+    &_bg-color-#{$color} {
+      background-color: var(--color-background-#{$color});
     }
   }
 }

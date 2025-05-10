@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onBeforeMount } from 'vue'
 import { RouterView } from 'vue-router'
-import SideBar from './components/Sidebar/SideBar.vue'
+import SideBar from './menu/sidebar/MainSidebar.vue'
 import MainLayout from './layouts/main/MainLayout.vue'
-import { useAuthStore } from './stores/auth'
-import { THEMES, useThemeStore } from './stores/theme'
+import { useAuthStore } from './auth/auth'
+import { THEMES, useThemeStore } from './theme/theme'
 
 const auth = useAuthStore()
 const themeStore = useThemeStore()
@@ -17,25 +17,21 @@ const changeTheme = () => {
 
 onBeforeMount(() => {
   themeStore.changeTheme(themeStore.currentTheme)
-  auth.setSessionData()
-
-  setTimeout(async () => {
-    await auth.signIn()
-  }, 3000)
+  auth.signIn()
 })
 </script>
 
 <template>
-  <MainLayout class="main-layout">
+  <MainLayout v-isAuthLoaded="auth.isAuthLoaded" class="main-layout">
     <template #aside>
       <SideBar />
     </template>
 
     <template #header>
-      <button @click="changeTheme">changeTheme</button>
+      <el-button type="primary" @click="changeTheme">changeTheme</el-button>
     </template>
 
-    <template #main>
+    <template v-if="!auth.isAuthLoaded" #main>
       <KeepAlive>
         <RouterView />
       </KeepAlive>

@@ -1,6 +1,7 @@
 :root {
   /* Основные цвета */
   --color-background: #ffffff;
+  --color-background-base: #ffffff;
   --color-background-soft: #f9f9f9;
   --color-background-mute: #f1f1f1;
 
@@ -21,8 +22,9 @@
   --color-warn: #f1c40f;
 }
 
-[data-theme='dark'] {
+[color-scheme='dark'] {
   --color-background: #181818;
+  --color-background-base: #181818;
   --color-background-soft: #282828;
   --color-background-mute: #222222;
 
@@ -43,8 +45,9 @@
   --color-warn: #d35400;
 }
 
-[data-theme='pastel'] {
+[color-scheme='pastel'] {
   --color-background: #f0e6ef;
+  --color-background-base: #f0e6ef;
   --color-background-soft: #f5e8f4;
   --color-background-mute: #faf2f9;
 
@@ -65,8 +68,9 @@
   --color-warn: #ffcc00;
 }
 
-[data-theme='monochrome'] {
+[color-scheme='monochrome'] {
   --color-background: #f5f5f5;
+  --color-background-base: #f5f5f5;
   --color-background-soft: #e5e5e5;
   --color-background-mute: #d5d5d5;
 
@@ -87,8 +91,9 @@
   --color-warn: #666666;
 }
 
-[data-theme='vibrant'] {
+[color-scheme='vibrant'] {
   --color-background: #ecf0f1;
+  --color-background-base: #ecf0f1;
   --color-background-soft: #e0e7e9;
   --color-background-mute: #d4dde0;
 

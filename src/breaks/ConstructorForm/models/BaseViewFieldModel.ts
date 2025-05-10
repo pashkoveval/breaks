@@ -2,8 +2,8 @@ import { ApiProperty } from '@/api'
 import { BaseAttrModel } from '@/api/Model/BaseAttr/BaseAttrModel'
 // import { BaseClassModel } from '@/api/Model/BaseClass/BaseClassModel';
 import Model from '@/api/Model/Model'
-import { FieldTypes, FieldViewTypes } from '@/base/Fields'
-import { InputTypes } from '@/base/Inputs'
+import { FieldTypes, FieldViewTypes } from '@/enums/Fields'
+import { InputTypes } from '@/enums/Inputs'
 import guid from '@/helpers/guid'
 
 export class BaseViewFieldModel extends Model {
@@ -17,7 +17,7 @@ export class BaseViewFieldModel extends Model {
   public attrCode: BaseAttrModel['code'] = ''
 
   @ApiProperty({ type: 'string' })
-  public attrType: BaseAttrModel['type'] = InputTypes.STRING
+  public attrType: BaseAttrModel['type'] = FieldTypes.INPUT
 
   @ApiProperty({ type: 'string' })
   public viewType: FieldViewTypes = FieldViewTypes.EDIT
@@ -29,7 +29,7 @@ export class BaseViewFieldModel extends Model {
 
 export class FieldTypeElement extends Model {
   @ApiProperty({ type: 'string' })
-  public type?: FieldTypes = FieldTypes.INPUT
+  public type: FieldTypes = FieldTypes.INPUT
 
   @ApiProperty({ type: 'string' })
   public name?: string = ''
@@ -86,7 +86,7 @@ export class BaseFieldsTypeList {
     },
     {
       type: FieldTypes.DATE_TIME,
-      name: 'Кнопка',
+      name: 'Дата',
       inputTypes: [InputTypes.DATE, InputTypes.TIME, InputTypes.DATETIME],
     },
     {
@@ -112,10 +112,6 @@ export class BaseFieldsTypeList {
   ]
 
   public inputType?: null | InputTypes
-
-  constructor(attr?: null | InputTypes | BaseAttrModel) {
-    this.inputType = attr instanceof BaseAttrModel ? attr?.type : attr
-  }
 
   public get list(): FieldTypeElement[] {
     return this.allElements.filter((field) => {

@@ -2,11 +2,11 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { transformMany } from '@/api'
-import { MenuItem } from '@/api/Model/Menu/MenuItem'
+import { ModelBaseMenu } from '@/api/Model/ModelBaseMenu'
 import router from '@/router'
 
 export const useMenuStore = defineStore('menu', () => {
-  const menuList = ref<MenuItem[]>([])
+  const menuList = ref<ModelBaseMenu[]>([])
 
   const prepareRouts = () => {
     const mapRoute = (el: RouteRecordRaw) => {
@@ -20,7 +20,7 @@ export const useMenuStore = defineStore('menu', () => {
   }
 
   const setMenuList = async () => {
-    menuList.value = await transformMany(prepareRouts(), MenuItem)
+    menuList.value = await transformMany(prepareRouts(), ModelBaseMenu)
   }
 
   setMenuList()

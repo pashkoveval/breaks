@@ -1,6 +1,6 @@
 import type { AuthError, PostgrestError, Session, SignInWithPasswordCredentials, User } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import isEqual from '@/helpers/isEqual'
 import omit from '@/helpers/omit'
 import supabase from '@/supabase'
@@ -18,6 +18,10 @@ export type SessionData = Omit<Session, 'user'>
 export type AuthErrorData = Partial<AuthError & PostgrestError>
 
 export const useAuthStore = defineStore('auth', () => {
+  const currentSession = computed<CurrentSession | null>(() =>
+    JSON.parse(localStorage.getItem('ppe.currentSession') || 'null'),
+  )
+  const isAuthLoaded = ref<boolean>(true)
   const sessionData = ref<SessionData | null>(null)
   const profileData = ref<ProfileUser | null>(null)
   const authError = ref<AuthErrorData[]>([])
@@ -45,28 +49,32 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.setItem(key, JSON.stringify(data))
     }
   }
-  const _setSession = (session: Session | null | undefined) => {
+  const _setSession = async (session: Session | null | undefined) => {
     if (session && !sessionData.value) {
-      _setProfile(session?.user)
+      await _setProfile(session?.user)
       _setCurrentSession(session)
       sessionData.value = omit(session, ['user'])
     }
   }
 
   const setSessionData = async () => {
+    isAuthLoaded.value = true
     const _setOrGetSession = async () => {
-      const currentSession: CurrentSession | null = JSON.parse(localStorage.getItem('ppe.currentSession') || 'null')
-      if (currentSession) {
-        return await supabase.auth.setSession(currentSession)
+      if (currentSession.value) {
+        return await supabase.auth.setSession(currentSession.value)
       }
       return await supabase.auth.getSession()
     }
 
-    _setSession(
-      await _setOrGetSession().then(({ data, error }) => {
-        _setError(error)
-        return data.session
-      }),
+    await _setSession(
+      await _setOrGetSession()
+        .then(({ data, error }) => {
+          _setError(error)
+          return data.session
+        })
+        .finally(() => {
+          isAuthLoaded.value = false
+        }),
     )
   }
 
@@ -76,6 +84,11 @@ export const useAuthStore = defineStore('auth', () => {
       password: 'super_admin',
     },
   ) => {
+    isAuthLoaded.value = true
+    if (!currentSession.value) {
+      await setSessionData()
+    }
+
     if (sessionData.value) {
       return
     }
@@ -85,9 +98,10 @@ export const useAuthStore = defineStore('auth', () => {
       error,
     } = await supabase.auth.signInWithPassword(credentials)
     _setError(error)
-    _setSession(session)
+    await _setSession(session)
+    isAuthLoaded.value = false
     return { user, session, error }
   }
 
-  return { sessionData, profileData, authError, setSessionData, signIn }
+  return { isAuthLoaded, currentSession, sessionData, profileData, authError, setSessionData, signIn }
 })
